@@ -37,16 +37,20 @@ Player.prototype.bankRoll = function () {
     };
 
 function updateActivePlayer (inputRoster){
-  if (inputRoster.activeplayer === 4) {
+  console.log(inputRoster.activeplayer);
+  if (inputRoster.activeplayer === (inputRoster.players.length - 1)) {
+    inputRoster.activeplayer = 0;
     console.log("activeplayer is four!!");
-  }
+    console.log(inputRoster);
+  }else{
     inputRoster.activeplayer += 1;
-
+    console.log(inputRoster)
+  }
 }
 
 function changeTurn () {
 
-  gamePlayers.players[gamePlayers.activeplayer].bankRoll();
+  //gamePlayers.players[gamePlayers.activeplayer].bankRoll();
   updateActivePlayer(gamePlayers);
 
 }
