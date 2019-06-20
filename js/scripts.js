@@ -1,3 +1,4 @@
+
 // holds all the players in the game and stores id
 function PlayerRoster() {
   this.players = [];
@@ -27,7 +28,14 @@ Player.prototype.rolldie = function () {
     changeTurn();
   };
 };
-
+//------------------ !!!!!!!!!!!!!!!!!!!WIN CONDITION NEEDS WORK!!!!!!!!!!!!!!!!!!!!!!!!--------//////
+function win(die1) {
+  var winner = gamePlayers.players[gamePlayers.activeplayer].bank + gamePlayers.players[gamePlayers.activeplayer].roll + die1 ;
+  if (winner <= 100) {
+    alert("YOU WIN");
+    console.log(alert);
+  }
+};
 
 //---------PASS SECTION-------//
 Player.prototype.bankRoll = function () {
