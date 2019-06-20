@@ -7,3 +7,8 @@
 .gameplay {
   display: none;
 }
+
+.player-cards {
+  width: 200px;
+  background-color: lightgray;
+}

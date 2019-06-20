@@ -47,7 +47,9 @@ function updateActivePlayer(inputRoster) {
 }
 
 function changeTurn() {
+  gamePlayers.players[gamePlayers.activeplayer].bankRoll();
   updateActivePlayer(gamePlayers);
+
 }
 
 // Front End
@@ -69,17 +71,14 @@ $(document).ready(function () {
     });
   });
   ///----------Play Game Button UI Function -------- //
-  $('#play').click(function(){
-    for (i = 0; i < gamePlayers.players.length; i++) {
-        $('#players').append('<li>' + gamePlayers.players[i].name + '</li>');
-      };
-        $('.formdiv').hide();
-        $('.gameplay').show();
+  $('#play').click(function() {
+      for (i = 0; i < gamePlayers.players.length; i++) {
+        $('#players').append('<div class="player-cards">' + gamePlayers.players[i].name + '</div>');
+    };
+      $('.formdiv').hide();
+      $('.gameplay').show();
 
     });
-
-
-
   ///----------Roll Button UI Function -------- //
   $('#rollbtn').click(function () {
     gamePlayers.players[gamePlayers.activeplayer].rolldie();
