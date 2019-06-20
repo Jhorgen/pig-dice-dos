@@ -9,50 +9,46 @@ PlayerRoster.prototype.addPlayer = function (player) {
   this.players.push(player);
 };
 
-// PlayerRoster.prototype.assignId = function () {
-//   this.playerId += 1;
-//   return this.playerId;
-//
-// };
-
 // the template for each player
 function Player(name, playerID) {
   this.name = name;
   this.playerid = newIDforPlayer += 1;
   this.roll = 0;
   this.bank = 0;
-  };
+};
 
 // -------DICE SECTION ------- //
 
 Player.prototype.rolldie = function () {
   var die1 = Math.floor(Math.random() * 6) + 1;
   this.roll = this.roll + die1;
+  if (die1 === 1) {
+    this.roll = 0;
+    changeTurn();
+  };
 };
+
 
 //---------PASS SECTION-------//
 Player.prototype.bankRoll = function () {
-    this.bank = this.bank + this.roll;
-    this.roll = 0;
-    };
+  this.bank = this.bank + this.roll;
+  this.roll = 0;
+};
 
 function updateActivePlayer (inputRoster){
   console.log(inputRoster.activeplayer);
   if (inputRoster.activeplayer === (inputRoster.players.length - 1)) {
     inputRoster.activeplayer = 0;
-    console.log("activeplayer is four!!");
     console.log(inputRoster);
-  }else{
+  } else {
     inputRoster.activeplayer += 1;
-    console.log(inputRoster)
+    console.log(inputRoster);
   }
 }
 
-function changeTurn () {
-
+function changeTurn() {
   //gamePlayers.players[gamePlayers.activeplayer].bankRoll();
   updateActivePlayer(gamePlayers);
-
 }
 
 // Front End
@@ -70,13 +66,14 @@ $(document).ready(function () {
   $('#rollbtn').click(function () {
     gamePlayers.players[gamePlayers.activeplayer].rolldie();
     console.log(gamePlayers.players[gamePlayers.activeplayer]);
+  $('.current-roll-total').text(gamePlayers.players[gamePlayers.activeplayer].roll);
+    console.log(gamePlayers.players[gamePlayers.activeplayer].roll
   });
 
   $('#passbtn').click(function () {
     changeTurn();
     console.log(gamePlayers.players[gamePlayers.activeplayer]);
   });
-
 
 
 });
