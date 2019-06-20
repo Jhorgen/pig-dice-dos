@@ -22,7 +22,7 @@ function Player(name, playerID) {
 Player.prototype.rolldie = function () {
   var die1 = Math.floor(Math.random() * 6) + 1;
   this.roll = this.roll + die1;
-  if (die1 === 1) {
+  if (die1 === 9) {
     this.roll = 0;
     changeTurn();
   };
@@ -36,7 +36,6 @@ Player.prototype.bankRoll = function () {
 };
 
 function updateActivePlayer(inputRoster) {
-  console.log(inputRoster.activeplayer);
   if (inputRoster.activeplayer === (inputRoster.players.length - 1)) {
     inputRoster.activeplayer = 0;
     console.log(inputRoster);
@@ -48,6 +47,7 @@ function updateActivePlayer(inputRoster) {
 
 function changeTurn() {
   gamePlayers.players[gamePlayers.activeplayer].bankRoll();
+  $('.player-bank' + gamePlayers.activeplayer).text(gamePlayers.players[gamePlayers.activeplayer].bank);
   updateActivePlayer(gamePlayers);
 
 }
@@ -71,14 +71,13 @@ $(document).ready(function () {
     });
   });
   ///----------Play Game Button UI Function -------- //
-  $('#play').click(function() {
-      for (i = 0; i < gamePlayers.players.length; i++) {
-        $('#players').append('<div class="player-cards">' + gamePlayers.players[i].name + '</div>');
+  $('#play').click(function () {
+    for (i = 0; i < gamePlayers.players.length; i++) {
+      $('#players').append('<div class="player-cards">' + gamePlayers.players[i].name + '</div>' + '<div class="player-bank' + i + '"></div>');
     };
-      $('.formdiv').hide();
-      $('.gameplay').show();
-
-    });
+    $('.formdiv').hide();
+    $('.gameplay').show();
+  });
   ///----------Roll Button UI Function -------- //
   $('#rollbtn').click(function () {
     gamePlayers.players[gamePlayers.activeplayer].rolldie();
@@ -88,8 +87,9 @@ $(document).ready(function () {
   });
   ///----------Pass Button UI Function -------- //
   $('#passbtn').click(function () {
-    changeTurn();
-    console.log(gamePlayers.players[gamePlayers.activeplayer]);
+      changeTurn();
+      console.log(gamePlayers.players[gamePlayers.activeplayer]);
+
   });
 
 }); //This closes the Doc ready function
