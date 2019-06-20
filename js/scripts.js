@@ -35,7 +35,7 @@ Player.prototype.bankRoll = function () {
   this.roll = 0;
 };
 
-function updateActivePlayer (inputRoster){
+function updateActivePlayer(inputRoster) {
   console.log(inputRoster.activeplayer);
   if (inputRoster.activeplayer === (inputRoster.players.length - 1)) {
     inputRoster.activeplayer = 0;
@@ -47,7 +47,6 @@ function updateActivePlayer (inputRoster){
 }
 
 function changeTurn() {
-  //gamePlayers.players[gamePlayers.activeplayer].bankRoll();
   updateActivePlayer(gamePlayers);
 }
 
@@ -56,24 +55,42 @@ var gamePlayers = new PlayerRoster();
 var newIDforPlayer = 0;
 
 $(document).ready(function () {
+
+  //----------Roll Button UI Function -------- //
   $('#player1btn').click(function () {
     var inputName = $('#addplayer').val();
     var newPlayer = new Player(inputName, newIDforPlayer);
     gamePlayers.addPlayer(newPlayer);
     console.log(gamePlayers);
+    gamePlayers.players.forEach(function (x) {
+      $('#output').text('Welcome ' + x.name + '!');
+      console.log(x.name);
+      $('input').val("")
+    });
   });
+  ///----------Play Game Button UI Function -------- //
+  $('#play').click(function(){
+    for (i = 0; i < gamePlayers.players.length; i++) {
+        $('#players').append('<li>' + gamePlayers.players[i].name + '</li>');
+      };
+        $('.formdiv').hide();
+        $('.gameplay').show();
 
+    });
+
+
+
+  ///----------Roll Button UI Function -------- //
   $('#rollbtn').click(function () {
     gamePlayers.players[gamePlayers.activeplayer].rolldie();
     console.log(gamePlayers.players[gamePlayers.activeplayer]);
-  $('.current-roll-total').text(gamePlayers.players[gamePlayers.activeplayer].roll);
-    console.log(gamePlayers.players[gamePlayers.activeplayer].roll
+    $('.current-roll-total').text(gamePlayers.players[gamePlayers.activeplayer].roll);
+    console.log(gamePlayers.players[gamePlayers.activeplayer].roll);
   });
-
+  ///----------Pass Button UI Function -------- //
   $('#passbtn').click(function () {
     changeTurn();
     console.log(gamePlayers.players[gamePlayers.activeplayer]);
   });
 
-
-});
+}); //This closes the Doc ready function
